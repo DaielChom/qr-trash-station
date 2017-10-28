@@ -18,5 +18,5 @@ class DevelopmentConfig(Config):
     DEBUG = True
 
     #Conexion con la base de datos
-    #SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:1234@localhost/duntidb'
-    #SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:1234@localhost/qrtrash'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False

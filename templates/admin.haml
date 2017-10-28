@@ -5,6 +5,10 @@
     .card
       .card-content
         %span.card-title Informes
+          %ul.collection
+          {% for informe in informes%}
+          %li.collection-item informe
+          {% endfor %}
 
 
       .card-action
