@@ -10,3 +10,6 @@ Se desea recibir retroalimentación de los usuario, respecto a las estaciones do
 * Al acceder al sistema se despliega un formulario con atributos defindos como: el estado de la estación, si está rebosado o no, observaciones y la capacidad de adjuntar fotografías.
 * El formulario debe tener atributos opcionales de información del usuario para respuesta (Nombre y correo del usuario)
 * La información alfanumerica y de localización debe almacenarce en una base de datos SQL Server.
+
+## Diseños
+![photo](static/img/photo.jpg)
