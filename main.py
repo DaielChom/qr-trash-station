@@ -3,6 +3,8 @@ from flask import Flask
 from flask import render_template
 from flask_wtf import CSRFProtect
 from config import DevelopmentConfig
+from flask import request
+import json
 
 # Init Flask
 app = Flask(__name__)
@@ -20,7 +22,9 @@ def index():
 
 @app.route('/stations' , methods=['POST'])
 def stations():
-    return "stations"
+    ## ADD TO BD
+    print(request.form)
+    return json.dumps({'OK':200})
 
 @app.route('/report' , methods=['GET'])
 def report():
@@ -28,7 +32,7 @@ def report():
 
 @app.route('/admin' , methods=['GET', 'POST'])
 def admin():
-    return "admin"
+    return render_template('admin.html')
 
 @app.route('/reports' , methods=['GET'])
 def reports():
