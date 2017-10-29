@@ -1,0 +1,2 @@
+apt-get install libzbar0 libzbar-dev
+pip install zbarlight

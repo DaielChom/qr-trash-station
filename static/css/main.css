@@ -1,7 +1,21 @@
 footer{
-  position: fixed;
+
   bottom: 0;
   width:100%;
+  z-index: 100;
+}
+
+.absolute{
+  position: absolute;
+}
+
+#cardlector{
+  padding: 0px;
+}
+
+.card-title{
+  padding: 2px;
+  text-align: center;
 }
 /* ============== FONTS ============== */
 @font-face {
