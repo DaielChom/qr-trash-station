@@ -39,9 +39,22 @@ def stations():
     ##devoler QR
     return json.dumps({'OK':200})
 
-@app.route('/report' , methods=['GET'])
-def report():
-    return render_template('report.html')
+@app.route('/report' , methods=['GET','POST'])
+@app.route('/report/<id_estacion>' , methods=['GET'])
+def report(id_estacion = None):
+
+    if request.method == 'GET' and id_estacion is None:
+        return render_template('report.html')
+
+    if request.method == 'GET' and id_estacion:
+
+        ## ID id_estacion exist in the db
+        
+        return render_template('form.html', id_estacion=id_estacion)
+
+    if request.method == 'POST':
+        print(request.form)
+        return json.dumps({'ok':200})
 
 @app.route('/admin' , methods=['GET', 'POST'])
 def admin():

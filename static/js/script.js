@@ -98,7 +98,16 @@ document.addEventListener('DOMContentLoaded', function () {
         dataType: 'json',
         url: '/qrdecode',
         success: function(response){
-          agregaFormularioParaReporte(response.id)
+
+        
+          if(response.id==null){
+            alert("Error al leer QR");
+            location.reload();
+          }
+          else{
+//          agregaFormularioParaReporte(response.id)
+          window.location='/report/'+response.id;
+        }
         },
         error: function(error){alert("Error al cargar")}
       })
@@ -121,14 +130,50 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });
 
-    function agregaFormularioParaReporte(id_estacion){
-      $("#qr").remove()
-      $(".row").append()
-      my_stream.stop();
+//    function agregaFormularioParaReporte(id_estacion){
+//      my_stream.stop();
+//      $("#qr").remove()
+//      $(".row").load('/static/html/form.html', ()=>{
+//
+//        if (navigator.geolocation) {
+//          navigator.geolocation.getCurrentPosition(success, error);
+//        }else {
+//          $("#ubicacion").val("Geolocation is not supported by this browser");
+//
+//        }
+//
+//        $("#id_form").val(id_estacion)
+//        $("#ubicacion").val()
+
+//        var hoy = new Date()
+//        $("#fecha_report").val(String(hoy.getDate())+"-"+String(hoy.getMonth()+1)+"-"+String(hoy.getFullYear()));
+
+//        $("#report").on('click', (ev)=>{
+//          ev.preventDefault()
+//          data = {}
+//          $('form').find(":input").each((i, val)=>{
+//            console.log("ID: "+val.id+" Value: "+val.value);
+//            console.log(val);
+//            if(val.id=="photo"){
+//              console.log(val);
+//            }
+//          });
+//
+//        })
+
+
+//          });
+      // ICI
 
 
 
-    }
+//    }
+
+
+
+
+
+
 
     function showVideo(){
         // Display the video stream and the controls.

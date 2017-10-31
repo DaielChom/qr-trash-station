@@ -1,0 +1,60 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+        <div class="col s12 m6 offset-m3">
+          <div class="card ">
+
+
+
+            <div class="card-content">
+                      <span class="card-title">Informe</span>
+
+
+                        <form action="/report" method="post">
+
+
+                          <label for="id_form">ID</label>
+                          <input name="id_form" id="id_form" type="text"  value="{{id_estacion}}" disabled=True/>
+
+                          <label for="ubicacion">Ubicacion</label>
+                          <input name="ubicacion" id="ubicacion" type="text" class="validate" disabled="True"/>
+
+                          <label for="fecha_report">Fecha</label>
+                          <input id="fecha_report" type="date" class="validate" disabled=True/>
+
+                          <label for="name">Nombre</label>
+                          <input id="nombre" type="text" class="validate" required/>
+
+                          <div class="input-field col s12">
+                            <select>
+                              <option value="" disabled selected>Choose your option</option>
+                              <option value="1">Rebosada</option>
+                              <option value="2">No Rebosada</option>
+
+                            </select>
+                            <label>Estado</label>
+                          </div>
+
+
+                          <input required name="photo" type="file" id="photo" accept=".jpg, .jpeg, .png"/>
+
+
+                      </form>
+
+
+
+
+            </div>
+
+            <div class="card-action">
+              <input class="btn waves-effect waves-light" id="report" type="submit" value="ENVIAR">
+
+                        </div>
+
+
+          </div>
+          </div>
+        </div>
+{% endblock %}
