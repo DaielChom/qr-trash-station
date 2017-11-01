@@ -11,6 +11,7 @@ from matplotlib import pyplot as plt
 import matplotlib.image as mpimg
 from PIL import Image
 import zbarlight
+import qrcode
 
 from modelo import db
 from modelo import Estacion
@@ -25,6 +26,13 @@ app.config.from_object(DevelopmentConfig)
 # Implement Security for forms
 csrf = CSRFProtect()
 
+def getImageToB64(code):
+    s = code[22:]
+    img_b = base64.b64decode(s)
+    buf = io.BytesIO(img_b)
+    buf = mpimg.imread(buf, format='JPG')
+    return buf
+
 # Rute /
 @app.route('/', methods=['GET'])
 def index():
@@ -32,12 +40,24 @@ def index():
 
 @app.route('/stations' , methods=['POST'])
 def stations():
-
-    estacion_q = Estacion(request.form['id'])
+    stations_id = request.form['id']
+    estacion_q = Estacion(stations_id)
     db.session.add(estacion_q)
     db.session.commit()
-    ##devoler QR
-    return json.dumps({'OK':200})
+
+    qr = qrcode.QRCode(
+    version=1,
+    error_correction=qrcode.constants.ERROR_CORRECT_L,
+    box_size=10,
+    border=4,
+    )
+
+    qr.add_data(stations_id)
+    qr.make(fit=True)
+    qr = qr.make_image()
+
+    qr.save("./static/img/"+stations_id+".jpeg", "jpeg")
+    return json.dumps({'qr':"/static/img/"+stations_id+".jpeg"})
 
 @app.route('/report' , methods=['GET','POST'])
 @app.route('/report/<id_estacion>' , methods=['GET'])
@@ -49,11 +69,15 @@ def report(id_estacion = None):
     if request.method == 'GET' and id_estacion:
 
         ## ID id_estacion exist in the db
-        
+
         return render_template('form.html', id_estacion=id_estacion)
 
     if request.method == 'POST':
-        print(request.form)
+        img = getImageToB64(request.form['img'])
+        mpimg.imsave("./static/img/"+"REPORT_"+request.form['id']+"_"+request.form['fecha_report']+".jpg",img, format="jpg")
+        informe = Reporte("REPORT"+request.form['id']+request.form['ubicacion'], request.form['id'], request.form['estado'], request.form['fecha_report'], request.form['nombre'], "./static/img/"+"REPORT_"+request.form['id']+"_"+request.form['fecha_report']+".jpg" ,request.form['ubicacion'])
+        db.session.add(informe)
+        db.session.commit()
         return json.dumps({'ok':200})
 
 @app.route('/admin' , methods=['GET', 'POST'])
@@ -63,10 +87,7 @@ def admin():
 
 @app.route('/qrdecode', methods=['POST'])
 def qrdecode():
-    s = request.form['image'][22:]
-    img_b = base64.b64decode(s)
-    buf = io.BytesIO(img_b)
-    buf = mpimg.imread(buf, format='JPG')
+    buf = getImageToB64(request.form['image'])
     codes = zbarlight.scan_codes('qrcode', Image.fromarray(buf))
     if codes is not None:
         qr_id = str(codes[0])[2:]

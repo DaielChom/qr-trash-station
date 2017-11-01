@@ -15,13 +15,13 @@ class Reporte(db.Model):
 
     __tablename__ = "reporte"
 
-    id_reporte = db.Column(db.String(20), nullable=False, primary_key=True)
-    estacion_reporte = db.Column(db.String(20), db.ForeignKey('estacion.id_estacion'), nullable=False)
-    estado_reporte = db.Column(db.String(20), nullable=False)
-    fecha_reporte = db.Column(db.String(20), nullable=False)
-    nombre_usuario_reporte = db.Column(db.String(20), nullable=False)
-    url_imagen_reporte = db.Column(db.String(20), nullable=False)
-    ubicacion_reporte = db.Column(db.String(20), nullable=False)
+    id_reporte = db.Column(db.String(1000), nullable=False, primary_key=True)
+    estacion_reporte = db.Column(db.String(1000), db.ForeignKey('estacion.id_estacion'), nullable=False)
+    estado_reporte = db.Column(db.String(1000), nullable=False)
+    fecha_reporte = db.Column(db.String(1000), nullable=False)
+    nombre_usuario_reporte = db.Column(db.String(1000), nullable=False)
+    url_imagen_reporte = db.Column(db.String(1000), nullable=False)
+    ubicacion_reporte = db.Column(db.String(1000), nullable=False)
 
     def __init__(self, id_reporte, estacion_reporte, estado_reporte, fecha_reporte, nombre_usuario_reporte, url_imagen_reporte, ubicacion_reporte):
         self.id_reporte = id_reporte

@@ -5,6 +5,20 @@
     <div class="card">
       <div class="card-content">
         <span class="card-title">Informes</span>
+        <ul class="collection">
+      {% for informe in informes %}
+      <li class="collection-item">
+      <b>ESTACION:</b>
+      {{informe.estacion_reporte}}
+      <br/>
+      <b>ESTADO:</b>
+      {{informe.estado_reporte}}
+      <br/>
+      <b>FOTO:</b>
+       <img class="materialboxed" width="20" src={{informe.url_imagen_reporte[1:]}} />
+    </li>
+      {%endfor%}
+    </ul>
       </div>
       <div class="card-action"></div>
     </div>
@@ -20,6 +34,7 @@
         </div>
         <div class="card-action">
           <input class="btn waves-effect waves-light" id="crear_contenedor" type="submit" value="CREAR">
+          
         </div>
       </form>
     </div>

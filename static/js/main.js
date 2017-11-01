@@ -11,7 +11,13 @@ $('#crear_contenedor').on('click', (ev)=>{
       url:"/stations",
       data: $('form').serialize(),
       dataType: 'json',
-      success: function(response){ alert("Contenedor Agregado"); location.reload(); },
+      success: function(response){
+        var link = document.createElement('a');
+        link.href = response['qr'];  // use realtive url
+        link.download = response['qr'].substring(12);
+        document.body.appendChild(link);
+        link.click();
+       },
       error: function(error){alert("Error al crear")}
   });
 
@@ -36,14 +42,31 @@ $('input[type=file]').change(function (ev) {
 });
 
 $('#report').on('click',(ev)=>{
-  ev.preventDefault()
-  id_estacion = $("#id_form").val()
-  ubicacion = $("#ubicacion").val()
-  fecha_report = $("#fecha_report").val()
-  nombre = $("#nombre").val()
-  estado = ""
-  data = {'id':id_estacion, 'ubicacion': ubicacion, 'fecha_report': fecha_report, 'nombre': nombre, 'estado': estado, 'img':img}
-  console.log(data);
+  ev.preventDefault();
+  if($("#id_form").val().length!=0 && $("#ubicacion").val().length!=0 && $("#fecha_report").val().length!=0 && $("#nombre").val().length!=0 && $('#select_state').val().length!=0 && img!=0){
+    id_estacion = $("#id_form").val()
+    ubicacion = $("#ubicacion").val()
+    fecha_report = $("#fecha_report").val()
+    nombre = $("#nombre").val()
+    estado = $('#select_state').val()
+    data = {'id':id_estacion, 'ubicacion': ubicacion, 'fecha_report': fecha_report, 'nombre': nombre, 'estado': estado, 'img':img}
+
+    $.ajax({
+      method:"POST",
+      data: data,
+      dataType: 'json',
+      url: "/report",
+      success: function(response){alert('Reporte Enviado'); window.location='/'},
+      error: function(response){alert('Error al Enviar Reporte')}
+    });
+
+
+  }
+
+  else{
+    console.log("SS");
+    alert('Llene todos los campos');
+  }
 
 })
 
