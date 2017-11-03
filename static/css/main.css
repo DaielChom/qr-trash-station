@@ -6,12 +6,19 @@ footer{
 }
 
 .absolute{
-  position: absolute;
+  position: fixed;
 }
 
 #cardlector{
   padding: 0px;
 }
+
+.image-upload > input
+{
+    display: none;
+}
+
+
 
 .card-title{
   padding: 2px;

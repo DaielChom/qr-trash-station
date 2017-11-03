@@ -99,14 +99,16 @@ document.addEventListener('DOMContentLoaded', function () {
         url: '/qrdecode',
         success: function(response){
 
-        
+
           if(response.id==null){
             alert("Error al leer QR");
             location.reload();
           }
           else{
 //          agregaFormularioParaReporte(response.id)
-          window.location='/report/'+response.id;
+          location.replace("http://"+response.id)//;
+
+
         }
         },
         error: function(error){alert("Error al cargar")}

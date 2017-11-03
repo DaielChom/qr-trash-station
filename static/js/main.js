@@ -55,7 +55,7 @@ $('#report').on('click',(ev)=>{
       method:"POST",
       data: data,
       dataType: 'json',
-      url: "/report",
+      url: "/rpt",
       success: function(response){alert('Reporte Enviado'); window.location='/'},
       error: function(response){alert('Error al Enviar Reporte')}
     });
