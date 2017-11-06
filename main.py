@@ -11,7 +11,7 @@ import io
 from matplotlib import pyplot as plt
 import matplotlib.image as mpimg
 from PIL import Image
-import zbarlight
+from pyzbar.pyzbar import decode
 import qrcode
 from modelo import db
 from modelo import Estacion
@@ -88,9 +88,10 @@ def admin():
 @app.route('/qrdecode', methods=['POST'])
 def qrdecode():
     buf = getImageToB64(request.form['image'])
-    codes = zbarlight.scan_codes('qrcode', Image.fromarray(buf))
+    codes = decode(Image.fromarray(buf))
+
     if codes is not None:
-        qr_id = str(codes[0])[2:-1]
+        qr_id = str(codes[0].data)[2:-1]
     else:
         qr_id = None
     return json.dumps({'id':qr_id})
