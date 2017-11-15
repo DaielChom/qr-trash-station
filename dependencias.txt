@@ -1,10 +1,29 @@
 libzbar0 
 libzbar-dev
-flask 
-flask_wtf
-matplotlib
-pyzbar 
-Pillow 
-qrcode 
-flask_sqlalchemy 
-psycopg2
+
+Python (pip)
+click==6.7
+cycler==0.10.0
+Flask==0.12.2
+Flask-SQLAlchemy==2.3.2
+Flask-WTF==0.14.2
+itsdangerous==0.24
+Jinja2==2.10
+MarkupSafe==1.0
+matplotlib==2.1.0
+numpy==1.13.3
+olefile==0.44
+Pillow==4.3.0
+psycopg2==2.7.3.2
+pyparsing==2.2.0
+python-dateutil==2.6.1
+pytz==2017.3
+pyzbar==0.1.4
+qrcode==5.3
+six==1.11.0
+SQLAlchemy==1.1.15
+Werkzeug==0.12.2
+WTForms==2.1
+
+Linux
+sudo apt-get install python3-tk
