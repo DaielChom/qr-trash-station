@@ -10,7 +10,8 @@ class Config(object):
 
     #Genera identificador para el formulario
     SECRET_KEY = 'SECRET_KEY'
-    SERVER_NAME = 'localhost:5000'
+    SERVER_NAME = 'localhost:5000' 
+    
 
 #Clase Desarrollador --Configuraciones para el modo desarrollador--
 class DevelopmentConfig(Config):

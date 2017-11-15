@@ -1,3 +1,10 @@
-apt-get install libzbar0 libzbar-dev
-pip install pyzbar
-conda install -c conda-forge qrcode
+libzbar0 
+libzbar-dev
+flask 
+flask_wtf
+matplotlib
+pyzbar 
+Pillow 
+qrcode 
+flask_sqlalchemy 
+psycopg2
