@@ -52,7 +52,7 @@ def stations():
         border=4,
     )
 
-    qr.add_data("http://"+Config.SERVER_NAME+"/rpt/"+stations_id)
+    qr.add_data("https://"+Config.SERVER_NAME+"/rpt/"+stations_id)
     qr.make(fit=True)
     qr = qr.make_image()
 

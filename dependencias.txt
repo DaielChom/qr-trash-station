@@ -1,4 +1,4 @@
-libzbar0 
+libzbar0
 libzbar-dev
 
 Python (pip)
@@ -24,6 +24,9 @@ six==1.11.0
 SQLAlchemy==1.1.15
 Werkzeug==0.12.2
 WTForms==2.1
+pymssql
+
 
 Linux
 sudo apt-get install python3-tk
+sudo apt-get install freetds-dev

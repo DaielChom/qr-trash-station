@@ -10,8 +10,9 @@ class Config(object):
 
     #Genera identificador para el formulario
     SECRET_KEY = 'SECRET_KEY'
-    SERVER_NAME = 'localhost:5000' 
-    
+    SERVER_NAME = '10.1.90.20:5000'
+    APPLICATION_ROOT = 'contenedores'
+
 
 #Clase Desarrollador --Configuraciones para el modo desarrollador--
 class DevelopmentConfig(Config):
@@ -19,6 +20,6 @@ class DevelopmentConfig(Config):
     #El servidor esta a la escucha de cambios
     DEBUG = True
 
-    #Conexion con la base de datos
-    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:1234@localhost/qrtrash'
+    #Conexion con la base de datos Para MS SQL Server
+    SQLALCHEMY_DATABASE_URI = 'mssql+pymssql://user:pass@server/bd_name'
     SQLALCHEMY_TRACK_MODIFICATIONS = False

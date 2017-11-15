@@ -6,7 +6,7 @@ db = SQLAlchemy()
 class Estacion(db.Model):
     __tablename__ = "estacion"
 
-    id_estacion = db.Column(db.String(20), primary_key = True, nullable= False)
+    id_estacion = db.Column(db.String(1000), primary_key = True, nullable= False)
 
     def __init__(self, id_estacion):
         self.id_estacion = id_estacion
