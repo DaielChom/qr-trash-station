@@ -9,7 +9,7 @@ import os
 class Config(object):
 
     #Genera identificador para el formulario
-    SECRET_KEY = 'SECRET_KEY'
+    SECRET_KEY = 'secret'
     SERVER_NAME = '10.1.90.20:5000'
     APPLICATION_ROOT = 'contenedores'
 
