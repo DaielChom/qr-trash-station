@@ -8,7 +8,7 @@ $('#crear_contenedor').on('click', (ev)=>{
 
   $.ajax({
       method: "POST",
-      url:"/stations",
+      url:"/contenedores/stations",
       data: $('form').serialize(),
       dataType: 'json',
       success: function(response){
@@ -55,8 +55,8 @@ $('#report').on('click',(ev)=>{
       method:"POST",
       data: data,
       dataType: 'json',
-      url: "/rpt",
-      success: function(response){alert('Reporte Enviado'); window.location='/'},
+      url: "/contenedores/rpt",
+      success: function(response){alert('Reporte Enviado'); window.location='/contenedores/'},
       error: function(response){alert('Error al Enviar Reporte')}
     });
 

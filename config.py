@@ -9,10 +9,9 @@ import os
 class Config(object):
 
     #Genera identificador para el formulario
-    SECRET_KEY = 'secret'
-    SERVER_NAME = '10.1.90.20:5000'
-    APPLICATION_ROOT = 'contenedores'
-
+    SECRET_KEY = '***'
+    SERVER_NAME = '10.1.90.20'
+    APPLICATION_ROOT = '/contenedores/'
 
 #Clase Desarrollador --Configuraciones para el modo desarrollador--
 class DevelopmentConfig(Config):
@@ -20,6 +19,6 @@ class DevelopmentConfig(Config):
     #El servidor esta a la escucha de cambios
     DEBUG = True
 
-    #Conexion con la base de datos Para MS SQL Server
-    SQLALCHEMY_DATABASE_URI = 'mssql+pymssql://user:pass@server/bd_name'
+    #Conexion con la base de datos
+    SQLALCHEMY_DATABASE_URI = 'mssql+pymssql://user:pass@server/db'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
