@@ -132,51 +132,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });
 
-//    function agregaFormularioParaReporte(id_estacion){
-//      my_stream.stop();
-//      $("#qr").remove()
-//      $(".row").load('/static/html/form.html', ()=>{
-//
-//        if (navigator.geolocation) {
-//          navigator.geolocation.getCurrentPosition(success, error);
-//        }else {
-//          $("#ubicacion").val("Geolocation is not supported by this browser");
-//
-//        }
-//
-//        $("#id_form").val(id_estacion)
-//        $("#ubicacion").val()
-
-//        var hoy = new Date()
-//        $("#fecha_report").val(String(hoy.getDate())+"-"+String(hoy.getMonth()+1)+"-"+String(hoy.getFullYear()));
-
-//        $("#report").on('click', (ev)=>{
-//          ev.preventDefault()
-//          data = {}
-//          $('form').find(":input").each((i, val)=>{
-//            console.log("ID: "+val.id+" Value: "+val.value);
-//            console.log(val);
-//            if(val.id=="photo"){
-//              console.log(val);
-//            }
-//          });
-//
-//        })
-
-
-//          });
-      // ICI
-
-
-
-//    }
-
-
-
-
-
-
-
     function showVideo(){
         // Display the video stream and the controls.
 

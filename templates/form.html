@@ -5,15 +5,9 @@
 <div class="row">
         <div class="col s12 m6 offset-m3">
           <div class="card ">
-
-
-
             <div class="card-content">
-                      <span class="card-title">Informe</span>
-
-
-                        <form action="/report" method="post">
-
+                      <span class="card-title red-text">Campos Obligatorios</span>
+                        <form>
 
                           <label for="id_form">ID</label>
                           <input name="id_form" id="id_form" type="text"  value="{{id_estacion}}" disabled=True/>
@@ -22,10 +16,7 @@
                           <input name="ubicacion" id="ubicacion" type="text" class="validate" disabled="True"/>
 
                           <label for="fecha_report">Fecha</label>
-                          <input id="fecha_report" type="date" class="validate" disabled=True/>
-
-                          <label for="name">Nombre</label>
-                          <input id="nombre" type="text" class="validate" required/>
+                          <input id="fecha_report" type="date" class="validate" disabled=True value = {{fecha}} />
 
                           <div class="input-field col s12">
                             <select id="select_state">
@@ -37,15 +28,25 @@
                             <label>Estado</label>
                           </div>
 
-
                           <input required name="photo" type="file" id="photo" accept=".jpg, .jpeg, .png"/>
 
 
+
+                      <span class="card-title red-text">Campos opcionales</span>
+
+
+
+
+                          <label for="name">Nombre</label>
+                          <input id="nombre" type="text" class="validate"/>
+
+                          <label for="name">Correo</label>
+                          <input id="correo" type="email" class="validate"/>
+
+
+
                       </form>
-
-
-
-
+            </div>
             </div>
 
             <div class="card-action">

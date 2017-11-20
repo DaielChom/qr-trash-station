@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="row">
+
   <div class="col s12 m8">
     <div class="card">
       <div class="card-content">
@@ -30,19 +31,42 @@
     </div>
   </div>
   <div class="col s12 m4">
-    <div class="card">
-      <form>
-        <div class="card-content">
-          <span class="card-title">Nuevo Contenedor</span>
-          <input name="csrf_token" type="Hidden" value="{{csrf_token()}}">
-          <label for="id_content">ID</label>
-          <input class="validate" id="id_content" name="id" placeholder="Id Contenedor" type="text">
-        </div>
-        <div class="card-action">
-          <input class="btn waves-effect waves-light" id="crear_contenedor" type="submit" value="CREAR">
+    <div class="row">
+      <div class="col s12">
+        <div class="card">
+          <form>
+            <div class="card-content">
+              <span class="card-title">Nuevo Contenedor</span>
+              <input name="csrf_token" type="Hidden" value="{{csrf_token()}}">
+              <label for="id_content">ID</label>
+              <input class="validate" id="id_content" name="id" placeholder="Id Contenedor" type="text">
+            </div>
+            <div class="card-action">
+              <input class="btn waves-effect waves-light" id="crear_contenedor" type="submit" value="CREAR">
+
+            </div>
+          </form>
 
         </div>
-      </form>
+      <div class="col s12">
+
+        <div class="card">
+            <div class="card-content">
+              <span class="card-title">Contenedores</span>
+              <div  class="collection">
+                {% for conten in estaciones %}
+                <a class="collection-item qrElement" href="/static/img/qr/{{conten.id_estacion}}.jpeg"  download="{{conten.id_estacion}}.jpeg">{{conten.id_estacion}}</a>
+                {%endfor%}
+              </div>
+
+            </div>
+          </div>
+
+
+
+      </div>
+  </div>
+
     </div>
   </div>
 </div>
