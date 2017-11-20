@@ -1,4 +1,3 @@
-# Libraries
 import os
 import time
 from flask import Flask, redirect, url_for
@@ -20,7 +19,6 @@ from modelo import Estacion
 from modelo import Reporte
 from prefix import PrefixMiddleware
 
-# Init Flask y db
 app = Flask(__name__)
 db.init_app(app)
 with app.app_context():
@@ -76,20 +74,21 @@ def report(id_estacion = None):
         return render_template('report.html')
 
     if request.method == 'GET' and id_estacion:
-        return render_template('form.html', id_estacion=id_estacion)
+        return render_template('form.html', id_estacion=id_estacion, fecha=time.strftime("%d-%m-%Y"))
 
     if request.method == 'POST':
         img = getImageToB64(request.form['img'])
         mpimg.imsave('/srv/qr-trash-station/static/img/rpt/'+"REPORT_"+request.form['id']+"_"+request.form['fecha_report']+".jpg",img, format="jpg", dpi=150)
-        informe = Reporte("REPORT"+request.form['id']+request.form['ubicacion']+time.strftime("%d/%m/%Y:%H:%M:%S"), request.form['id'], request.form['estado'], request.form['fecha_report'], request.form['nombre'], "./contenedores/static/img/rpt/"+"REPORT_"+request.form['id']+"_"+request.form['fecha_report']+".jpg" ,request.form['ubicacion'])
+        informe = Reporte("REPORT"+request.form['id']+request.form['ubicacion']+time.strftime("%d/%m/%Y:%H:%M:%S"), request.form['id'], request.form['estado'], request.form['fecha_report'], request.form['nombre'],request.form['correo'], "./contenedores/static/img/rpt/"+"REPORT_"+request.form['id']+"_"+request.form['fecha_report']+".jpg" ,request.form['ubicacion'])
         db.session.add(informe)
         db.session.commit()
         return json.dumps({'ok':200})
 
-@app.route('/admin' , methods=['GET', 'POST'])
+@app.route('/gestion' , methods=['GET', 'POST'])
 def admin():
-    informes = Reporte.query.all() 
-    return render_template('admin.html', informes = informes)
+    informes = Reporte.query.all() ##ARREGLAR QUERY
+    estaciones = Estacion.query.all()
+    return render_template('admin.html', informes = informes, estaciones = estaciones)
 
 @app.route('/qrdecode', methods=['POST'])
 def qrdecode():
@@ -103,5 +102,4 @@ def qrdecode():
     return json.dumps({'id':qr_id})
 
 if __name__ == '__main__':
-
     app.run(host = '0.0.0.0')

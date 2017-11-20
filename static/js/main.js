@@ -23,8 +23,6 @@ $('#crear_contenedor').on('click', (ev)=>{
 
 })
 
-var hoy = new Date()
-$("#fecha_report").val(String(hoy.getDate())+"-"+String(hoy.getMonth()+1)+"-"+String(hoy.getFullYear()));
 
 
 if (navigator.geolocation) {
@@ -43,13 +41,14 @@ $('input[type=file]').change(function (ev) {
 
 $('#report').on('click',(ev)=>{
   ev.preventDefault();
-  if($("#id_form").val().length!=0 && $("#ubicacion").val().length!=0 && $("#fecha_report").val().length!=0 && $("#nombre").val().length!=0 && $('#select_state').val().length!=0 && img!=0){
+  if($("#id_form").val().length!=0 && $("#ubicacion").val().length!=0 && $("#fecha_report").val().length!=0 && $('#select_state').val().length!=0 && img!=0){
     id_estacion = $("#id_form").val()
     ubicacion = $("#ubicacion").val()
     fecha_report = $("#fecha_report").val()
     nombre = $("#nombre").val()
+    correo = $("#correo").val()
     estado = $('#select_state').val()
-    data = {'id':id_estacion, 'ubicacion': ubicacion, 'fecha_report': fecha_report, 'nombre': nombre, 'estado': estado, 'img':img}
+    data = {'id':id_estacion, 'ubicacion': ubicacion, 'fecha_report': fecha_report, 'nombre': nombre,'correo': correo, 'estado': estado, 'img':img}
 
     $.ajax({
       method:"POST",
@@ -64,7 +63,7 @@ $('#report').on('click',(ev)=>{
   }
 
   else{
-    console.log("SS");
+
     alert('Llene todos los campos');
   }
 
