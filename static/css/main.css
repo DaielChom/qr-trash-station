@@ -18,7 +18,12 @@ footer{
     display: none;
 }
 
-
+.ges{
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+}
 
 .card-title{
   padding: 2px;

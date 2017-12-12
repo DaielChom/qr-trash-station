@@ -1,7 +1,7 @@
 # Libraries
 import time
 from flask import Flask, redirect, url_for
-from flask import render_template
+from flask import render_template, session
 from flask_wtf import CSRFProtect
 from config import DevelopmentConfig
 from config import Config
@@ -37,12 +37,34 @@ def getImageToB64(code):
 # Rute /
 @app.route('/', methods=['GET'])
 def index():
-    return redirect(url_for('report'))
+    return render_template('index.html')
+
+@app.route('/login', methods=['GET','POST'])
+def login():
+    if 'acceso' in session:
+        session.pop('acceso')
+
+    if request.method == 'GET':
+        return render_template('login.html')
+
+    if request.method == 'POST':
+
+        user = request.form['user']
+        passw = request.form['pass']
+
+        if (user=="admin" and passw == "1234"):
+            session['acceso'] = "true"
+            return json.dumps({'acceso':'true'})
+
+        else:
+            return json.dumps({'acceso':'false'})
+
 
 @app.route('/stations' , methods=['POST'])
 def stations():
     stations_id = request.form['id']
-    estacion_q = Estacion(stations_id)
+    descripcion = request.form['descripcion']
+    estacion_q = Estacion(stations_id, descripcion)
     db.session.add(estacion_q)
     db.session.commit()
 
@@ -60,32 +82,42 @@ def stations():
     qr.save("./static/img/qr/"+stations_id+".jpeg", "jpeg")
     return json.dumps({'qr':"/static/img/qr/"+stations_id+".jpeg"})
 
-@app.route('/rpt' , methods=['GET','POST'])
+@app.route('/rpt' , methods=['POST'])
 @app.route('/rpt/<id_estacion>' , methods=['GET'])
 def report(id_estacion = None):
 
-    if request.method == 'GET' and id_estacion is None:
-        return render_template('report.html')
+    #if request.method == 'GET' and id_estacion is None:
+    #    return render_template('report.html')
 
     if request.method == 'GET' and id_estacion:
 
         ## ID id_estacion exist in the db
 
-        return render_template('form.html', id_estacion=id_estacion, fecha=time.strftime("%d-%m-%Y") )
+        return render_template('form.html', id_estacion=id_estacion)
 
     if request.method == 'POST':
-        img = getImageToB64(request.form['img'])
-        mpimg.imsave("./static/img/rpt/"+"REPORT_"+request.form['id']+"_"+request.form['fecha_report']+".jpg",img, format="jpg", dpi=150)
-        informe = Reporte("REPORT"+request.form['id']+request.form['ubicacion']+time.strftime("%d/%m/%Y:%H:%M:%S"), request.form['id'], request.form['estado'], request.form['fecha_report'], request.form['nombre'],request.form['correo'], "./static/img/rpt/"+"REPORT_"+request.form['id']+"_"+request.form['fecha_report']+".jpg" ,request.form['ubicacion'])
+
+        dir_image = "none"
+
+        if request.form['img'] != "0":
+            img = getImageToB64(request.form['img'])
+            dir_image = "./static/img/rpt/"+"REPORT_"+request.form['id']+"_"+ time.strftime("%d-%m-%Y:%H:%M:%S")+".jpg"
+            mpimg.imsave(dir_image,img, format="jpg", dpi=150)
+
+        informe = Reporte("REPORT"+request.form['id']+request.form['ubicacion']+time.strftime("%d/%m/%Y:%H:%M:%S"), request.form['id'], request.form['estado'], time.strftime("%d-%m-%Y"), request.form['nombre'],request.form['correo'], dir_image ,request.form['ubicacion'])
         db.session.add(informe)
         db.session.commit()
         return json.dumps({'ok':200})
 
 @app.route('/gestion' , methods=['GET', 'POST'])
 def admin():
-    informes = Reporte.query.all() ##ARREGLAR QUERY
-    estaciones = Estacion.query.all()
-    return render_template('admin.html', informes = informes, estaciones = estaciones)
+    if 'acceso' in session:
+        informes = Reporte.query.all() ##ARREGLAR QUERY
+        estaciones = Estacion.query.all()
+        return render_template('admin.html', informes = informes, estaciones = estaciones)
+    else:
+        return "Acceso denegado"
+
 
 @app.route('/qrdecode', methods=['POST'])
 def qrdecode():

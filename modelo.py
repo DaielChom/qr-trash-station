@@ -7,9 +7,11 @@ class Estacion(db.Model):
     __tablename__ = "estacion"
 
     id_estacion = db.Column(db.String(1000), primary_key = True, nullable= False)
+    descripcion = db.Column(db.String(1000), nullable= False)
 
-    def __init__(self, id_estacion):
+    def __init__(self, id_estacion, descripcion):
         self.id_estacion = id_estacion
+        self.descripcion = descripcion
 
 class Reporte(db.Model):
 

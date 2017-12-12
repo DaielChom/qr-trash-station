@@ -3,23 +3,32 @@ var img = 0;
 $(".button-collapse").sideNav();
 
 $('#crear_contenedor').on('click', (ev)=>{
-
   ev.preventDefault();
 
-  $.ajax({
-      method: "POST",
-      url:"/stations",
-      data: $('form').serialize(),
-      dataType: 'json',
-      success: function(response){
-        var link = document.createElement('a');
-        link.href = response['qr'];  // use realtive url
-        link.download = response['qr'].substring(12);
-        document.body.appendChild(link);
-        link.click();
-       },
-      error: function(error){alert("Error al crear")}
-  });
+  if($("#id_content").hasClass('invalid')){
+    alert("No se aceptan caracteres especiales")
+  }
+
+  else{
+
+    $.ajax({
+        method: "POST",
+        url:"/stations",
+        data: $('form').serialize(),
+        dataType: 'json',
+        success: function(response){
+          var link = document.createElement('a');
+          link.href = response['qr'];  // use realtive url
+          link.download = response['qr'].substring(12);
+          document.body.appendChild(link);
+          link.click();
+         },
+        error: function(error){alert("Error al crear")}
+    });
+
+  }
+
+
 
 })
 
@@ -38,15 +47,17 @@ $('input[type=file]').change(function (ev) {
 });
 
 $('#report').on('click',(ev)=>{
+  console.log("Click Enviar");
   ev.preventDefault();
-  if($("#id_form").val().length!=0 && $("#ubicacion").val().length!=0 && $("#fecha_report").val().length!=0 && $('#select_state').val().length!=0 && img!=0){
+
+  if($('#select_state').val() != null && $("#nombre").val() != null && $("#correo")!= null){
+
     id_estacion = $("#id_form").val()
     ubicacion = $("#ubicacion").val()
-    fecha_report = $("#fecha_report").val()
     nombre = $("#nombre").val()
     correo = $("#correo").val()
     estado = $('#select_state').val()
-    data = {'id':id_estacion, 'ubicacion': ubicacion, 'fecha_report': fecha_report, 'nombre': nombre, 'correo': correo,'estado': estado, 'img':img}
+    data = {'id':id_estacion, 'ubicacion': ubicacion, 'nombre': nombre, 'correo': correo,'estado': estado, 'img':img}
 
     $.ajax({
       method:"POST",
@@ -54,7 +65,7 @@ $('#report').on('click',(ev)=>{
       dataType: 'json',
       url: "/rpt",
       success: function(response){alert('Reporte Enviado'); window.location='/'},
-      error: function(response){alert('Error al Enviar Reporte')}
+      error: function(response){alert('Error al Enviar Reporte. Error: ' + response['responseText'])}
     });
 
 
@@ -83,3 +94,32 @@ function error() {
 $(document).ready(function() {
    $('select').material_select();
  });
+
+ $('#textarea1').val('New Text');
+ $('#textarea1').trigger('autoresize');
+
+ $(document).ready(function() {
+   Materialize.updateTextFields();
+ });
+
+function sesion() {
+  user = $('#user').val()
+  pass = $('#pass').val()
+
+  data = {'user':user,'pass':pass}
+  $.ajax({
+    method:"POST",
+    dataType: 'json',
+    data: data,
+    url: "login",
+    success: function(response){
+      if(response.acceso == "true"){
+        window.location='/gestion'
+      }
+      else {
+      alert("Campos Incorrectos");
+      }
+     },
+    error: function(response){console.log(response);}
+  });
+}
